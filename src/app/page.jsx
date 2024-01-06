@@ -15,7 +15,18 @@ const Home = () => {
           <button className={styles.button}>Contact</button>
         </div>
         <div className={styles.brands}>
-          <Image src="/brands.png" alt="" fill className={styles.brandImg} />
+          <div className={styles.brandImg}>
+            <Image src="/discord.svg" alt="" fill />
+          </div>
+          <div className={styles.brandImg}>
+            <Image src="/reddit2.svg" alt="" fill />
+          </div>
+          <div className={styles.brandImg}>
+            <Image src="/steam.svg" alt="" fill />
+          </div>
+          <div className={styles.brandImg}>
+            <Image src="/twitch.svg" alt="" fill />
+          </div>
         </div>
       </div>
 

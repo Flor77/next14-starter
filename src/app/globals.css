@@ -4,9 +4,6 @@
   --text: #ffffff;
   --textSoft: #e5e5e5;
   --btn: #7a0289;
-  /* --btn: #025589; */
-  /* --btn: #897a02; */
-  /* --btn: #7a0289; */
 }
 
 * {
@@ -74,6 +71,12 @@ a {
 
 @media (max-width: 475px) {
   .container {
-    width: 425px;
+    width: 380px;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
+    width: 278px;
   }
 }

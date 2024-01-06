@@ -15,6 +15,7 @@ const ContactPage = () => {
   // const a = Math.random();
 
   // console.log(a);
+  console.log("it works here");
 
   return (
     <div className={styles.container}>
