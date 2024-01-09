@@ -31,7 +31,8 @@
   border: none;
   outline: none;
   background-color: var(--bgSoft);
-  color: var(--text);
+  -webkit-text-fill-color: var(--textSoft);
+  font-family: sans-serif;
 }
 
 .form button {

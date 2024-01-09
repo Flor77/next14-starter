@@ -4,7 +4,9 @@ import styles from "./contact.module.css";
 // import dynamic from "next/dynamic";
 // import HydrationTest from "@/components/hydrationTest";
 
-// const HydrationTestNoSSR = dynamic(()=>import("@/components/hydrationTest"), {ssr: false})
+// const HydrationTestNoSSR = dynamic(() => import("@/components/hydrationTest"), {
+//   ssr: false,
+// });
 
 export const metadata = {
   title: "Contact Page",
@@ -12,15 +14,10 @@ export const metadata = {
 };
 
 const ContactPage = () => {
-  // const a = Math.random();
-
-  // console.log(a);
-  console.log("it works here");
-
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image src="/section-4-bg.png" alt="" fill className={styles.img} />
+        <Image src="/contactus.svg" alt="" fill className={styles.img} />
       </div>
       <div className={styles.formContainer}>
         {/* <HydrationTestNoSSR/> */}

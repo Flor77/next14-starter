@@ -1,45 +1,73 @@
 import Image from "next/image";
 import styles from "./singlePost.module.css";
+import PostUser from "@/components/postUser/postUser";
+import { Suspense } from "react";
+import { getPost } from "@/lib/data";
 
-const SinglePostPage = () => {
+// FETCH DATA WITH AN API
+async function getData(slug) {
+  const api_url = process.env.API_URL;
+  const res = await fetch(`${api_url}/api/blog/${slug}`);
+
+  // console.log("API request status:", res.status);
+  // console.log("API request statusText:", res.statusText);
+
+  if (!res.ok) {
+    console.error("API request failed. Response:", res);
+    throw new Error("Something went wrong");
+  }
+  return res.json();
+}
+
+export const generateMetadata = async ({ params }) => {
+  const { slug } = params;
+  const post = await getData(slug);
+
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+};
+
+export default async function SinglePostPage({ params }) {
+  const { slug } = params;
+  const post = await getData(slug);
+
   return (
     <div className={styles.container}>
-      <div className={styles.imgContainer}>
-        <Image
-          src="https://images.pexels.com/photos/17976275/pexels-photo-17976275/free-photo-of-edificio-de-correos-in-valencia.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
-          alt=""
-          fill
-          className={styles.img}
-        />
-      </div>
+      {post.img && (
+        <div className={styles.imgContainer}>
+          <Image src={post.img} alt="" fill className={styles.img} />
+        </div>
+      )}
       <div className={styles.textContainer}>
-        <h1 className={styles.title}>Title</h1>
+        <h1 className={styles.title}>{post.title}</h1>
         <div className={styles.detail}>
-          <Image
-            src="/noavatar.png"
-            alt=""
-            width={50}
-            height={50}
-            className={styles.avatar}
-          />
-          <div className={styles.detailText}>
-            <span className={styles.detailTitle}>Author</span>
-            <span className={styles.detailValue}>John Doe</span>
-          </div>
+          {post && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <PostUser userId={post.userId} />
+            </Suspense>
+          )}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
-            <span className={styles.detailValue}>01.01.2024</span>
+            <span className={styles.detailValue}>
+              {post.createdAt.toString().slice(0, 10)}
+            </span>
           </div>
         </div>
-        <div className={styles.content}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam
-          reiciendis id a non. Pariatur labore nam ad itaque amet dolor
-          exercitationem atque eaque velit, illo deleniti dolorem non, iusto
-          doloribus.
-        </div>
+        <div className={styles.content}>{post.desc}</div>
       </div>
     </div>
   );
-};
+}
 
-export default SinglePostPage;
+// const SinglePostPage = async ({ params }) => {
+//   const { slug } = params;
+
+//   // FETCH DATA WITH AN API
+//   const post = await getData(slug);
+
+//   // FETCH DATA WITHOUT AN API
+//   // const post = await getPost(slug);
+
+// };
