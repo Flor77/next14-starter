@@ -16,10 +16,10 @@ const ServerActionTestPage = () => {
         <button>Create</button>
       </form>
 
-      <form action={deletePost}>
+      {/* <form action={deletePost}>
         <input type="text" placeholder="postId" name="id" />
         <button>Delete</button>
-      </form>
+      </form> */}
     </div>
   );
 };
