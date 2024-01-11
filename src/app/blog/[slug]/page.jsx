@@ -9,6 +9,8 @@ async function getData(slug) {
   const api_url = process.env.API_URL;
   const res = await fetch(`${api_url}/api/blog/${slug}`);
 
+  console.log("Fetched post data:", res);
+
   // console.log("API request status:", res.status);
   // console.log("API request statusText:", res.statusText);
 
@@ -16,7 +18,10 @@ async function getData(slug) {
     console.error("API request failed. Response:", res);
     throw new Error("Something went wrong");
   }
-  return res.json();
+  const postData = await res.json();
+  console.log("Fetched post data:", postData);
+
+  return postData;
 }
 
 export const generateMetadata = async ({ params }) => {
@@ -32,6 +37,7 @@ export const generateMetadata = async ({ params }) => {
 export default async function SinglePostPage({ params }) {
   const { slug } = params;
   const post = await getData(slug);
+  console.log("Post userId is:", post.userId);
 
   return (
     <div className={styles.container}>
@@ -60,14 +66,3 @@ export default async function SinglePostPage({ params }) {
     </div>
   );
 }
-
-// const SinglePostPage = async ({ params }) => {
-//   const { slug } = params;
-
-//   // FETCH DATA WITH AN API
-//   const post = await getData(slug);
-
-//   // FETCH DATA WITHOUT AN API
-//   // const post = await getPost(slug);
-
-// };

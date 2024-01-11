@@ -3,8 +3,9 @@ import styles from "./postUser.module.css";
 import Image from "next/image";
 
 export default async function PostUser({ userId }) {
+  console.log("Requested userId:", userId);
   const user = await getUser(userId);
-  console.log(user);
+  console.log("User from DB:", user);
 
   return (
     <div className={styles.container}>
